@@ -14,6 +14,8 @@ management:
   health:
     ratelimiters:
       enabled: true
+    circuitbreakers:
+      enabled: true
 resilience4j:
   ratelimiter:
     instances:
@@ -21,4 +23,15 @@ resilience4j:
         limit-for-period: 5
         limit-refresh-period: 15s
         timeout-duration: 5s
+        register-health-indicator: true
+  circuitbreaker:
+    instances:
+      payment-service:
+        sliding-window-type: COUNT_BASED
+        failure-rate-threshold: 50
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10
         register-health-indicator: true
