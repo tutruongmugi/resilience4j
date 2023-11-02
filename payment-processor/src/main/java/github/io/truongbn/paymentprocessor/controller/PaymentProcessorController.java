@@ -1,5 +1,6 @@
 package github.io.truongbn.paymentprocessor.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PaymentProcessorController {
     private final PaymentProcessorService paymentProcessorService;
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public String processPayment(@RequestBody String paymentInfo) {
         return paymentProcessorService.processPayment(paymentInfo);
     }
